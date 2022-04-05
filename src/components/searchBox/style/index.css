@@ -1,0 +1,27 @@
+#searchBox {
+  width: 70%;
+  height: 40px;
+  margin: auto;
+  margin-top: 70px;
+  border: 1px solid white;
+  border-radius: 7px;
+  box-shadow: 0, 1px, 1px, 10px, white;
+}
+
+input{
+  display: block;
+  width: 95%;
+  margin: auto;
+  height: 90%;
+  border-radius: 7px;
+  border: 0px ;
+  background-color: black;
+  outline: none;
+  font-size: 20px;
+  color: white;
+}
+
+#searchBox:focus-within{
+ border-color: skyblue;
+ box-shadow: 0, 1px, 1px, 10px, skyblue;
+}
