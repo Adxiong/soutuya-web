@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-05 16:35:03
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-05 23:34:37
+ * @LastEditTime: 2022-04-05 23:49:35
  */
 import { useEffect, useState } from 'react'
 import logo from './logo.svg'
@@ -14,7 +14,7 @@ import Picture from './components/picture'
 import axios from 'axios'
 function App() {
   const [data, setData] = useState<any[]>([])
-  
+  const [searchVal, setSearchVal] = useState<string>("")
   useEffect( () => {
     axios.get("http://api.isoyu.com/api/picture/index")
     .then( res => {
@@ -23,12 +23,19 @@ function App() {
     })
   }, [])
 
+  const afterChange = (value: string) => {
+    setSearchVal(value)
+  }
+  const filterData = (data: any[]) => {
+    return data.filter( item => item.desc.includes(searchVal))
+  }
+
   return (
     <div className="App">
-      <SearchBox/>
+      <SearchBox afterChange={afterChange}/>
       <div id='picture-content'>
         {
-          data.map(item => (
+          filterData(data).map(item => (
             <div key={item.setid}>
               <Picture
                 imgAddr={item.cover}
