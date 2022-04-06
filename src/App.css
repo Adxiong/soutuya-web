@@ -2,6 +2,7 @@
   background-color: black;
   min-height: 98vh;
   border: 1px solid black;
+  position: relative;
 }
 
 #picture-content {

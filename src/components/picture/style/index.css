@@ -1,7 +1,7 @@
 .picture-item {
   margin: 10px;
   width: auto;
-  height: 400px;
+  height: 200px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   color: black;
-  padding: 10px 0;
+  padding: 5px 0;
   background-color: rgba(255, 255, 255, .4);
   transition: all .5s ease-in-out;
   white-space: nowrap;

@@ -1,0 +1,32 @@
+#header{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  /* height: 35px; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo{
+  width: 120px;
+  /* height: 35px; */
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+}
+
+.nav{
+  max-width: 140px;
+  border: 1px solid white;
+}
+
+.nav ul {
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+.nav ul li{
+  height: 100%;
+  text-align: center;
+  display: inline;
+}
