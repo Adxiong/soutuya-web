@@ -16,7 +16,6 @@
 }
 
 .nav{
-  max-width: 140px;
   border: 1px solid white;
 }
 
@@ -27,6 +26,7 @@
 }
 .nav ul li{
   height: 100%;
+  margin: 0 5px;
   text-align: center;
   display: inline;
 }

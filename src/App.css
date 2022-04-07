@@ -3,6 +3,7 @@
   min-height: 98vh;
   border: 1px solid black;
   position: relative;
+  color: white;
 }
 
 #picture-content {
@@ -13,4 +14,9 @@
   justify-content: start;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+
+::-webkit-scrollbar{
+  width: 6px;
 }
