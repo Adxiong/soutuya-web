@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-06 13:30:46
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-06 14:17:02
+ * @LastEditTime: 2022-04-11 00:20:55
  */
 import { useEffect, useRef, useState } from "react"
 import Login from "./login"
@@ -29,9 +29,9 @@ const LoginComponent = () => {
   const FooterLink = () => {
     switch(mode) {
       case Mode.login:
-        return "没有账号？点击注册"
+        return <span onClick={()=>{setMode(Mode.register)}}>"没有账号？点击注册"</span>
       case Mode.register:
-        return "已有账号，点击登录"  
+        return <span onClick={()=>{setMode(Mode.login)}}>"已有账号，点击登录"</span>   
     }
   } 
 
@@ -41,15 +41,13 @@ const LoginComponent = () => {
 
   return (
     <div id="loginPanel">
-      <div id="loginFormArea">
+      {
+        FormComponent()
+      }
+      <div>
         {
-          FormComponent()
+          FooterLink()
         }
-        <div>
-          {
-            FooterLink()
-          }
-        </div>
       </div>
     </div>
   )

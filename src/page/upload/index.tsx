@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-07 14:00:02
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-07 17:45:50
+ * @LastEditTime: 2022-04-10 13:22:14
  */
 import { BaseSyntheticEvent, DragEventHandler, useRef, useState } from "react"
 import "./style/index.css"
@@ -20,14 +20,14 @@ const Upload = () => {
   const handleChange = () => {
     console.log(InputRef.current?.files)
   }
-  const handleDrop = (e) => {
+  const handleDrop = (e: any) => {
     console.log(e.dataTransfer.files);
     setFile(e.dataTransfer.files[0])
     UploadRef.current!.style.borderColor = "rgb(255,255,255)"
     e.preventDefault()
 
   }
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: any) => {
     // console.log(e.dataTransfer);
     UploadRef.current!.style.borderColor = "red"
     // e.defaultParent()
@@ -35,7 +35,7 @@ const Upload = () => {
     // return false
   }
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: any) => {
     UploadRef.current!.style.borderColor = "rgb(255,255,255)"
     e.preventDefault()
   }

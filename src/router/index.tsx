@@ -4,11 +4,11 @@
  * @Author: Adxiong
  * @Date: 2022-04-06 23:23:44
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-07 14:03:59
+ * @LastEditTime: 2022-04-11 00:15:43
  */
 
 import { RouteObject, useRoutes } from "react-router-dom";
-import Login from "../page/login/login";
+import Login from "../page/login";
 import Default from "../page/default";
 import Profile from "../page/profile";
 import Upload from "../page/upload";
