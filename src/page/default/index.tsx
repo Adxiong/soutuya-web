@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-06 23:04:24
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-11 23:40:33
+ * @LastEditTime: 2022-04-11 23:58:46
  */
 import SearchBox from '../../components/searchBox'
 import Picture from '../../components/picture'
@@ -17,16 +17,11 @@ const  Default = () => {
   const [data, setData] = useState<any[]>([])
 
   useEffect( () => {
-    axios.get("http://api.isoyu.com/api/picture/index")
-    .then( res => {
-      console.log(res.data.data);
-      setData(res.data.data)
-    })
+
 
     PicServer.recommend(50)
-    .then(res =>{
-      console.log(res);
-      
+    .then((res: any )=>{
+      setData(res.data)
     })
   }, [])
 
@@ -35,7 +30,7 @@ const  Default = () => {
     setSearchVal(value)
   }
   const filterData = (data: any[]) => {
-    return data.filter( item => item.desc.includes(searchVal))
+    return data.filter( item => item.name.includes(searchVal))
   }
 
   return (
@@ -44,10 +39,10 @@ const  Default = () => {
       <div id='picture-content'>
         {
           filterData(data).map(item => (
-            <div key={item.setid}>
+            <div key={item.id}>
               <Picture
-                imgAddr={item.cover}
-                imgTitle={item.desc}
+                imgAddr={item.addr}
+                imgTitle={item.name}
               />
             </div>
           ))
