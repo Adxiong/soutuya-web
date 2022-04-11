@@ -1,12 +1,16 @@
 #header{
+  width: 100%;
+  background-color: #000;
+  
+}
+
+.header-content{
   width: 90%;
   margin: auto;
   display: flex;
-  /* height: 35px; */
   align-items: center;
   justify-content: space-between;
 }
-
 .logo{
   width: 120px;
   /* height: 35px; */

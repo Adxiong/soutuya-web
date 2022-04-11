@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-10 20:31:18
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-10 23:40:45
+ * @LastEditTime: 2022-04-11 16:48:41
  */
 import axios, { AxiosInstance, AxiosResponse, Canceler, CancelToken } from "axios"
 import { message } from "antd"
@@ -78,6 +78,19 @@ class Request{
     return new Promise((resolve, reject) => {
       this.server({
         url,
+        method: "post",
+        data
+      })
+    })
+  }
+
+  postFormData<T>(url: string, data: FormData):Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.server({
+        url,
+        headers: {
+          "Content-Type": "multipart/form-data;"
+        },
         method: "post",
         data
       })

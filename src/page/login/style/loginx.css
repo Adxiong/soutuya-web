@@ -7,3 +7,14 @@
   padding: 20px;
   box-sizing: border-box;
 }
+
+#loginPanel .loginBtn{
+  display: block;
+  width: 55%;
+  margin: 5px auto;
+}
+
+#loginPanel .loginForm{
+  width: 75%;
+  margin: auto;
+}

@@ -1,0 +1,15 @@
+#registerPanel {
+  width: 500px;
+  height: 400px;
+  margin: 80px auto 0;
+  background-color: #9DA2DF;
+  border-radius: 5px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#registerPanel .loginBtn{
+  display: block;
+  width: 55%;
+  margin: 10px auto;
+}
