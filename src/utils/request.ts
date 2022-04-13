@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-10 20:31:18
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-11 16:48:41
+ * @LastEditTime: 2022-04-13 00:42:51
  */
 import axios, { AxiosInstance, AxiosResponse, Canceler, CancelToken } from "axios"
 import { message } from "antd"
@@ -33,7 +33,7 @@ class Request{
       return Promise.reject(err)
     })
 
-    this.server.interceptors.response.use( response =>{
+    this.server.interceptors.response.use( response =>{      
       return response.data
     }, error => {
       if (error && error.response) {
@@ -55,7 +55,7 @@ class Request{
     })
   }
 
-  get<T>(url: string, params: Record<string,any>): Promise<T>{
+  get<T>(url: string, params?: Record<string,any>): Promise<T>{
     return new Promise((resolve, reject) => {
       this.server({
         url,
@@ -80,6 +80,10 @@ class Request{
         url,
         method: "post",
         data
+      }).then(res => {
+        resolve(res.data as T)
+      }).catch( err => {
+        reject(err)
       })
     })
   }
@@ -93,7 +97,10 @@ class Request{
         },
         method: "post",
         data
+      }).then(res => {
+        resolve(res.data as T)
       })
+      .catch(err => reject(err))
     })
   }
 }

@@ -1,14 +1,4 @@
-.photos{
-  width: 50%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.photos img{
-  width: 200px;
-}
-
-.title{
-  margin: 10px;
-  color: #f40;
+#profile {
+  width: 80%;
+  margin: 10px auto ;
 }

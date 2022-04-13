@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-06 13:31:01
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-11 15:20:11
+ * @LastEditTime: 2022-04-13 15:19:17
  */
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Form, Input } from "antd"
@@ -12,18 +12,24 @@ import { useForm } from "antd/lib/form/Form"
 import { Link } from "react-router-dom"
 import "./style/loginx.css"
 import UserService from "../../service/user"
-
+import { UserInfo } from "../../types/user"
+import { useContext } from "react"
+import { StoreContext } from "../../store/store"
 interface FormData{
   user: string
   password: string
 }
 const Login = () => {
   const [form] = useForm<FormData>()
+  const {dispatch } = useContext(StoreContext)
   const login = () => {
     form.validateFields()
-    .then( data => {
-      console.log(data);
-      UserService.login(data)
+    .then( async data => {
+      const userInfo: UserInfo = await UserService.login(data)      
+      dispatch({
+        type: "setUserInfo",
+        payload: userInfo
+      })
     })
     .catch(err => {
       console.log(err);

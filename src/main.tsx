@@ -4,17 +4,18 @@
  * @Author: Adxiong
  * @Date: 2022-04-05 16:35:03
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-10 23:56:44
+ * @LastEditTime: 2022-04-13 17:30:40
  */
-import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import "antd/dist/antd.css";
+import Store from "./store/store"
+import { BrowserRouter }  from "react-router-dom"
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Store>
     <App />
-  </React.StrictMode>,
+  </Store>,
   document.getElementById('root')
 )

@@ -2,27 +2,23 @@
  * @Description: 
  * @version: 
  * @Author: Adxiong
- * @Date: 2022-04-06 23:04:17
+ * @Date: 2022-04-07 14:02:00
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-11 16:40:48
+ * @LastEditTime: 2022-04-13 22:50:14
  */
 
-import { useRef } from "react"
 import "./style/index.css"
-
+import Header from "./header"
+import { StoreContext } from "../../store/store"
+import { useContext } from "react"
 const Profile = () => {
-  const file1 = useRef<HTMLInputElement>(null)
-  const file2 = useRef<HTMLInputElement>(null)
+  const {store} = useContext(StoreContext)
+
   return (
-    <div>
-      <h1>看看你像谁？</h1>
-      <div className="photos">
-       <img src="../../../access/mouse.jpg" alt="" />
-       <img src="../../../access/1.jpg" alt="" />
-      </div>
-      <div className="title">
-        匹配结果：相似度87%
-      </div>
+    <div id="profile">
+      {console.log(store.userInfo)
+      }
+      <Header nick={store.userInfo.nick} user={store.userInfo.user}></Header>
     </div>
   )
 }

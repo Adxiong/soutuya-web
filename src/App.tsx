@@ -4,27 +4,46 @@
  * @Author: Adxiong
  * @Date: 2022-04-05 16:35:03
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-06 23:28:13
+ * @LastEditTime: 2022-04-13 18:02:23
  */
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { BrowserRouter } from 'react-router-dom'
-import Router from './router'
+import { BrowserRouter as Router,  useRoutes } from 'react-router-dom'
+import router from './router'
 
 import Header from './components/header'
+import Store, { StoreContext } from './store/store'
+import UserServer from "./service/user"
+
+const AppRoutes = () => {
+  return  useRoutes(router)
+}
 
 function App() {
 
+  const {store, dispatch  } = useContext(StoreContext)
+  
+  useEffect( () => {
+    console.log(111);
+
+    UserServer.getCurrentUser()
+    .then( userInfo => {
+      dispatch({
+        type: "setUserInfo",
+        payload: userInfo
+      })
+    })
+  }, [])
 
   return (
-    <BrowserRouter>
+    <Router>
       <div className="App">
         <Header></Header>
-        <Router></Router>
+        <AppRoutes></AppRoutes>
+        
       </div>
-    </BrowserRouter>
-    
+    </Router>
   )
 }
 
