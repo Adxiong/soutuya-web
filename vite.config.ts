@@ -4,20 +4,19 @@
  * @Author: Adxiong
  * @Date: 2022-04-05 16:35:03
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-14 14:51:12
+ * @LastEditTime: 2022-04-16 03:07:46
  */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from "path"
-
+import * as path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
     port: 8000,
     proxy: {
      "/api": {
-       target: "http://localhost:3000",
-       changeOrigin: true
+       target: "http://0.0.0.0:3000",
+       changeOrigin: false
       }
      }
   },
