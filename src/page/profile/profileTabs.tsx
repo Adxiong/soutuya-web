@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-14 17:55:48
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-14 19:31:10
+ * @LastEditTime: 2022-04-18 22:39:49
  */
 
 import { Form, Input, Table, Tabs } from 'antd';
@@ -27,7 +27,6 @@ const ProfileTabs = () => {
     if (activeKey == '1') {
       PicServer.myUploadPics(picData.page, picData.num).then(
         (res: PicInstance[]) => {
-          console.log(res);
           setPicData({ ...picData, data: res });
         }
       );

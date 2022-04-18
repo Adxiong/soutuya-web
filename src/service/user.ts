@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-11 15:13:57
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-13 15:27:09
+ * @LastEditTime: 2022-04-18 22:18:36
  */
 
 
@@ -25,6 +25,9 @@ class UserService {
   }
   async register(data: UserRegisterData) {
     return await request.post('/api/user/register', data)
+  }
+  async uploadAvatar(data: FormData) {
+    return await request.post('/api/user/uploadAvatar', data)
   }
 }
 
