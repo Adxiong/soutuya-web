@@ -2,3 +2,38 @@
   width: 80%;
   margin: 10px auto ;
 }
+
+.pic-tools {
+  display: flex;
+  justify-content: right;
+  margin: 10px 0;
+}
+
+.pic-tool-item {
+  color: white;
+  background-color: #3498db;
+  padding: 5px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border-left: 1px solid white;
+}
+
+.pic-tool-item:first-child{
+  border-left: none;
+}
+
+.pic-wrapper {
+  display: flex;
+}
+.pic-item{
+  width: 100px;
+  margin: 10px;
+}
+.pic-item-active {
+  border: 2px solid #3498db;
+}
+
+.pic-item img{
+  width: 100%;
+}

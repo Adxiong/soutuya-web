@@ -4,16 +4,18 @@
  * @Author: Adxiong
  * @Date: 2022-04-14 17:55:48
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-18 22:39:49
+ * @LastEditTime: 2022-04-25 23:49:55
  */
 
-import { Form, Input, Table, Tabs } from 'antd';
-import { useEffect, useState } from 'react';
+import { Checkbox, Form, Input, Table, Tabs } from 'antd';
+import CheckableTag from 'antd/lib/tag/CheckableTag';
+import { BaseSyntheticEvent, useEffect, useRef, useState } from 'react';
 import PicServer from '../../service/pic';
 import { PicInstance } from '../../types/pic';
 
 const ProfileTabs = () => {
   const [activeKey, setActiveKey] = useState<string>('0');
+  const [displayTools, setDisplayTools] = useState<boolean>(false);
   const [picData, setPicData] = useState<{
     page: number;
     num: number;
@@ -23,6 +25,8 @@ const ProfileTabs = () => {
     num: 50,
     data: [],
   });
+  const picWrapperRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (activeKey == '1') {
       PicServer.myUploadPics(picData.page, picData.num).then(
@@ -35,6 +39,31 @@ const ProfileTabs = () => {
 
   const tabChange = (activeKey: string) => {
     setActiveKey(activeKey);
+  };
+
+  const setToolsDisplay = (bool: boolean = true) => {
+    setDisplayTools(bool);
+  };
+
+  const selectPic = (e: BaseSyntheticEvent) => {
+    const ele = e.target.classList;
+
+    if (JSON.stringify(ele).includes('pic-item-active')) {
+      e.target.classList.remove('pic-item-active');
+    } else {
+      e.target.classList.add('pic-item-active');
+    }
+  };
+
+  const selectAll = (e: BaseSyntheticEvent) => {
+    picWrapperRef.current?.childNodes.forEach((node) => {
+      const ele = node.childNodes[0]['classList'];
+      if (JSON.stringify(ele).includes('pic-item-active')) {
+        ele.remove('pic-item-active');
+      } else {
+        ele.add('pic-item-active');
+      }
+    });
   };
   return (
     <div id="profile-table">
@@ -53,10 +82,37 @@ const ProfileTabs = () => {
             </Form.Item>
           </Form>
         </Tabs.TabPane>
+
         <Tabs.TabPane tab="我的上传" key={'1'}>
-          {picData.data.map((item) => {
-            return <img src={item.addr} alt="" />;
-          })}
+          <div className="pic-tools">
+            {displayTools ? (
+              <>
+                <div className="pic-tool-item" onClick={selectAll}>
+                  全选
+                </div>
+                <div className="pic-tool-item">删除</div>
+                <div
+                  className="pic-tool-item"
+                  onClick={() => setToolsDisplay(false)}
+                >
+                  取消
+                </div>
+              </>
+            ) : (
+              <div className="pic-tool-item" onClick={() => setToolsDisplay()}>
+                设置
+              </div>
+            )}
+          </div>
+          <div className="pic-wrapper" ref={picWrapperRef}>
+            {picData.data.map((item) => {
+              return (
+                <div className="pic-item" key={item.id} onClick={selectPic}>
+                  <img src={item.addr} alt={item.name} title={item.name} />
+                </div>
+              );
+            })}
+          </div>
         </Tabs.TabPane>
       </Tabs>
     </div>
