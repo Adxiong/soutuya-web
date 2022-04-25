@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-14 17:55:48
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-25 23:49:55
+ * @LastEditTime: 2022-04-26 00:00:31
  */
 
 import { Checkbox, Form, Input, Table, Tabs } from 'antd';
@@ -26,6 +26,7 @@ const ProfileTabs = () => {
     data: [],
   });
   const picWrapperRef = useRef<HTMLDivElement>(null);
+  const [isSelectAll, setIsSelectAll] = useState<boolean>(true);
 
   useEffect(() => {
     if (activeKey == '1') {
@@ -55,15 +56,17 @@ const ProfileTabs = () => {
     }
   };
 
-  const selectAll = (e: BaseSyntheticEvent) => {
-    picWrapperRef.current?.childNodes.forEach((node) => {
-      const ele = node.childNodes[0]['classList'];
-      if (JSON.stringify(ele).includes('pic-item-active')) {
+  const selectAll = () => {
+    if (picWrapperRef.current) {
+      picWrapperRef.current.childNodes.forEach((node: any) => {
+        const ele = node.childNodes[0]['classList'];
         ele.remove('pic-item-active');
-      } else {
-        ele.add('pic-item-active');
-      }
-    });
+        if (isSelectAll) {
+          ele.add('pic-item-active');
+        }
+      });
+    }
+    setIsSelectAll(!isSelectAll);
   };
   return (
     <div id="profile-table">
