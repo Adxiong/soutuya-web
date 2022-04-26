@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-14 17:55:48
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-26 00:00:31
+ * @LastEditTime: 2022-04-26 22:45:12
  */
 
 import { Checkbox, Form, Input, Table, Tabs } from 'antd';
@@ -27,6 +27,7 @@ const ProfileTabs = () => {
   });
   const picWrapperRef = useRef<HTMLDivElement>(null);
   const [isSelectAll, setIsSelectAll] = useState<boolean>(true);
+  const [selectPicKey, setSelectPicKey] = useState<string[]>([]);
 
   useEffect(() => {
     if (activeKey == '1') {
@@ -44,29 +45,54 @@ const ProfileTabs = () => {
 
   const setToolsDisplay = (bool: boolean = true) => {
     setDisplayTools(bool);
-  };
-
-  const selectPic = (e: BaseSyntheticEvent) => {
-    const ele = e.target.classList;
-
-    if (JSON.stringify(ele).includes('pic-item-active')) {
-      e.target.classList.remove('pic-item-active');
-    } else {
-      e.target.classList.add('pic-item-active');
-    }
-  };
-
-  const selectAll = () => {
     if (picWrapperRef.current) {
       picWrapperRef.current.childNodes.forEach((node: any) => {
         const ele = node.childNodes[0]['classList'];
         ele.remove('pic-item-active');
+      });
+    }
+    setSelectPicKey([]);
+    // setTimeout(() => {
+    // console.log(selectPicKey);
+    // }, 1000);
+  };
+
+  const selectPic = (e: BaseSyntheticEvent) => {
+    if (!displayTools) {
+      return;
+    }
+    const ele = e.target.classList;
+    if (JSON.stringify(ele).includes('pic-item-active')) {
+      e.target.classList.remove('pic-item-active');
+      setSelectPicKey(selectPicKey.filter((key) => key != e.target.dataset.id));
+    } else {
+      e.target.classList.add('pic-item-active');
+      setSelectPicKey([...selectPicKey, e.target.dataset.id]);
+    }
+  };
+
+  const selectAll = () => {
+    let picKeys = [...selectPicKey];
+
+    if (picWrapperRef.current) {
+      picWrapperRef.current.childNodes.forEach((node: any) => {
+        const ele = node.childNodes[0]['classList'];
+        const key = node.childNodes[0]['dataset']['id'];
+
+        ele.remove('pic-item-active');
+        picKeys = picKeys.filter((pkey) => pkey != key);
         if (isSelectAll) {
           ele.add('pic-item-active');
+          picKeys.push(key);
         }
       });
     }
     setIsSelectAll(!isSelectAll);
+    setSelectPicKey(picKeys);
+  };
+
+  const deletePic = () => {
+    console.log(selectPicKey);
   };
   return (
     <div id="profile-table">
@@ -93,7 +119,9 @@ const ProfileTabs = () => {
                 <div className="pic-tool-item" onClick={selectAll}>
                   全选
                 </div>
-                <div className="pic-tool-item">删除</div>
+                <div className="pic-tool-item" onClick={deletePic}>
+                  删除
+                </div>
                 <div
                   className="pic-tool-item"
                   onClick={() => setToolsDisplay(false)}
@@ -111,7 +139,12 @@ const ProfileTabs = () => {
             {picData.data.map((item) => {
               return (
                 <div className="pic-item" key={item.id} onClick={selectPic}>
-                  <img src={item.addr} alt={item.name} title={item.name} />
+                  <img
+                    src={item.addr}
+                    alt={item.name}
+                    data-id={item.addr.split('/').pop()}
+                    title={item.name}
+                  />
                 </div>
               );
             })}
