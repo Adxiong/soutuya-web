@@ -4,19 +4,21 @@
  * @Author: Adxiong
  * @Date: 2022-04-07 14:00:02
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-14 17:50:51
+ * @LastEditTime: 2022-04-29 21:24:36
  */
 import { BaseSyntheticEvent, DragEventHandler, useRef, useState } from 'react';
 import './style/index.css';
 import PicService from '../../service/pic';
-import { Button } from 'antd';
+import { Button, Form, Input, InputRef, Tag } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 const Upload = () => {
   const UploadRef = useRef<HTMLDivElement>(null);
   const InputRef = useRef<HTMLInputElement>(null);
-  const teleportRef = useRef<HTMLDivElement>(null);
+  const [tagList, setTagList] = useState<string[]>([]);
   const [picFile, setPicFile] = useState<File>();
-
+  const [visibleAddTagInput, setVisibleAddTagInput] = useState<boolean>(false);
+  const [addTagValue, setAddTagValue] = useState<string>('');
   const handleClickUpload = () => {
     InputRef.current?.click();
   };
@@ -56,28 +58,87 @@ const Upload = () => {
     }
   };
 
+  const showAddTag = () => {
+    setVisibleAddTagInput(true);
+  };
+
+  const handleInputChange = (e: BaseSyntheticEvent) => {
+    e.target.value && setAddTagValue(e.target.value);
+  };
+  const handleInputConfirm = () => {
+    if (!addTagValue) {
+      setVisibleAddTagInput(false);
+      return;
+    }
+    addTagValue && setTagList([...tagList, addTagValue]);
+    setAddTagValue('');
+    setVisibleAddTagInput(false);
+  };
   return (
-    <div>
-      <div
-        ref={UploadRef}
-        id="upload-component"
-        // draggable="true"
-        onClick={handleClickUpload}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+    <div id="UploadPage">
+      <Form
+        className="uploadForm"
+        labelCol={{ span: 4 }}
+        labelAlign="left"
+        wrapperCol={{ span: 10 }}
       >
-        {picFile ? (
-          picFile.name
-        ) : (
-          <div>
-            拖拽文件到此上传 或者
-            <a href="">点击上传</a>
+        <Form.Item label="标题">
+          <Input></Input>
+        </Form.Item>
+        <Form.Item label="关键字">
+          {tagList.map((tagItem, index) => (
+            <Tag className="tag" key={index} closable>
+              {tagItem}
+            </Tag>
+          ))}
+          {visibleAddTagInput && (
+            <Input
+              autoFocus
+              className="tagInput"
+              type="text"
+              size="small"
+              onChange={handleInputChange}
+              onBlur={handleInputConfirm}
+              onPressEnter={handleInputConfirm}
+            ></Input>
+          )}
+          {!visibleAddTagInput && (
+            <Tag onClick={showAddTag}>
+              <PlusOutlined /> new tag
+            </Tag>
+          )}
+        </Form.Item>
+
+        <Form.Item label="文件上传">
+          <div
+            ref={UploadRef}
+            id={picFile ? '' : 'upload-component'}
+            // draggable="true"
+            onClick={handleClickUpload}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+          >
+            {picFile ? (
+              picFile.name
+            ) : (
+              <div>
+                拖拽文件到此上传 或者
+                <span className="clickUploadSpan">点击上传</span>
+              </div>
+            )}
+            <input
+              type="file"
+              className="inputFile"
+              ref={InputRef}
+              onChange={handleChange}
+            />
           </div>
-        )}
-        <input type="file" ref={InputRef} onChange={handleChange} />
-      </div>
-      <Button onClick={submit}>上传</Button>
+        </Form.Item>
+        <Button type="primary" onClick={submit}>
+          上传
+        </Button>
+      </Form>
     </div>
   );
 };

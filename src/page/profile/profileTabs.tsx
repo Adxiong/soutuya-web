@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-14 17:55:48
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-26 22:45:12
+ * @LastEditTime: 2022-04-29 14:55:49
  */
 
 import { Checkbox, Form, Input, Table, Tabs } from 'antd';
@@ -52,9 +52,6 @@ const ProfileTabs = () => {
       });
     }
     setSelectPicKey([]);
-    // setTimeout(() => {
-    // console.log(selectPicKey);
-    // }, 1000);
   };
 
   const selectPic = (e: BaseSyntheticEvent) => {
@@ -92,11 +89,13 @@ const ProfileTabs = () => {
   };
 
   const deletePic = () => {
-    console.log(selectPicKey);
+    PicServer.batchDeletePic(selectPicKey).then((res) => {
+      console.log(res);
+    });
   };
   return (
     <div id="profile-table">
-      <Tabs activeKey={activeKey} onChange={tabChange}>
+      <Tabs activeKey={activeKey} onChange={tabChange} tabPosition="left">
         <Tabs.TabPane tab="基本信息" key={'0'}>
           <Form
             labelAlign="left"

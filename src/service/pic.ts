@@ -5,7 +5,7 @@ import { PicInstance } from './../types/pic';
  * @Author: Adxiong
  * @Date: 2022-04-11 16:43:02
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-26 16:39:43
+ * @LastEditTime: 2022-04-26 23:25:56
  */
 
 import request from "../utils/request"
@@ -24,7 +24,7 @@ class PicServer{
   }
 
   async batchDeletePic(data: string[]): Promise<any> {
-    return await request.post('/api/pic/batchDeletePic', data)
+    return await request.post('/api/pic/batchDeletePic', {data})
   }
 
 }
