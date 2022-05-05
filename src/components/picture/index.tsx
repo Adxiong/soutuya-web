@@ -4,11 +4,13 @@
  * @Author: Adxiong
  * @Date: 2022-04-05 22:45:21
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-05-05 14:29:15
+ * @LastEditTime: 2022-05-05 21:55:02
  */
 
 import { Image } from 'antd';
 import './style/index.css';
+import { v4 as uuidv4, v4 } from 'uuid';
+import { useEffect } from 'react';
 
 interface Props {
   data: any[];
@@ -16,7 +18,6 @@ interface Props {
 
 const Picture = (props: Props) => {
   const { data } = props;
-  console.log(data);
 
   return (
     <div className="pic-wrap">
@@ -24,6 +25,7 @@ const Picture = (props: Props) => {
         {data.map((item) => (
           <div key={item.id} className="picture-item">
             <Image
+              loading={'lazy'}
               width={'100%'}
               height={'90%'}
               src={item.addr}
