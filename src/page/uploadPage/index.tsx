@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-07 14:00:02
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-05-02 17:26:23
+ * @LastEditTime: 2022-05-07 22:46:17
  */
 import { BaseSyntheticEvent, useState } from 'react';
 import './style/index.css';
@@ -13,6 +13,7 @@ import { Button, Form, Input, Upload, Tag, Spin, Space } from 'antd';
 import { InboxOutlined, PlusOutlined } from '@ant-design/icons';
 import { useForm } from 'antd/lib/form/Form';
 import { useNavigate } from 'react-router-dom';
+import imgCompress from '../../utils/imgCompress';
 
 const UploadPage = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const UploadPage = () => {
     setSubmitting(true);
     form.validateFields().then(async (form) => {
       const data = new FormData();
-
+      const file = imgCompress.fileToBase64Compress(form.file.file);
       data.append('files', form.file.file);
       data.append('title', form.title);
       data.append('keyWord', JSON.stringify(tagList));

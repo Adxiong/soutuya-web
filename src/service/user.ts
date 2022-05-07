@@ -14,7 +14,6 @@ import request from "../utils/request";
 class UserService {
   async login(data: UserLoginData): Promise<UserInfo> {
     const dat: UserInfo= await request.post('/api/user/login', data)
-    console.log(dat);
     return dat
   }
   async logout(): Promise<boolean>{

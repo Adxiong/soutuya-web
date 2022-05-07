@@ -2,7 +2,7 @@
   display: grid;
   width: 80%;
   margin: 50px auto;
-  height: auto;
+  min-height: calc( 100vh - 76px );
   grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
   grid-template-rows: repeat(auto-fill, minmax(200px,1fr));
   gap: 10px;
