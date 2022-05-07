@@ -4,7 +4,7 @@
 * @Author: Adxiong
 * @Date: 2022-05-07 20:57:33
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-05-07 22:46:13
+ * @LastEditTime: 2022-05-07 23:19:40
 */
 class ImgCompress {
   fr = new FileReader()
@@ -12,7 +12,7 @@ class ImgCompress {
   
   /**
    * file to base64
-   * @returns base64 
+   * @returns blob
    */
   fileToBase64Compress(file: File): Promise<any>  {
     this.fr.readAsDataURL(file)
@@ -46,7 +46,7 @@ class ImgCompress {
 
         let imageData = cvs.toDataURL(mimeType);
         let blobData = this.convertVase64UrlToBlob(imageData, mimeType);
-        resolve(imageData);
+        resolve(blobData);
       };
     });
   }

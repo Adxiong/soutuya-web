@@ -4,12 +4,22 @@
  * @Author: Adxiong
  * @Date: 2022-04-07 14:00:02
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-05-07 22:46:17
+ * @LastEditTime: 2022-05-07 23:31:28
  */
 import { BaseSyntheticEvent, useState } from 'react';
 import './style/index.css';
 import PicService from '../../service/pic';
-import { Button, Form, Input, Upload, Tag, Spin, Space } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Upload,
+  Tag,
+  Spin,
+  Space,
+  Radio,
+  Switch,
+} from 'antd';
 import { InboxOutlined, PlusOutlined } from '@ant-design/icons';
 import { useForm } from 'antd/lib/form/Form';
 import { useNavigate } from 'react-router-dom';
@@ -25,11 +35,13 @@ const UploadPage = () => {
   const [uploadRes, setUploadRes] = useState<string>('');
 
   const submit = () => {
-    setSubmitting(true);
     form.validateFields().then(async (form) => {
+      setSubmitting(true);
       const data = new FormData();
-      const file = imgCompress.fileToBase64Compress(form.file.file);
-      data.append('files', form.file.file);
+      const file = await imgCompress.fileToBase64Compress(form.file.file);
+      console.log(file);
+
+      data.append('files', file);
       data.append('title', form.title);
       data.append('keyWord', JSON.stringify(tagList));
       const res: any = await PicService.upload(data);
@@ -134,7 +146,9 @@ const UploadPage = () => {
               </p>
             </Upload.Dragger>
           </Form.Item>
-
+          <Form.Item label="原图上传">
+            <Switch></Switch>
+          </Form.Item>
           <Button type="primary" onClick={submit}>
             上传
           </Button>

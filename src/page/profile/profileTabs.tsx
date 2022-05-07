@@ -4,7 +4,7 @@
  * @Author: Adxiong
  * @Date: 2022-04-14 17:55:48
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-04-29 14:55:49
+ * @LastEditTime: 2022-05-07 23:25:43
  */
 
 import { Checkbox, Form, Input, Table, Tabs } from 'antd';
@@ -33,6 +33,8 @@ const ProfileTabs = () => {
     if (activeKey == '1') {
       PicServer.myUploadPics(picData.page, picData.num).then(
         (res: PicInstance[]) => {
+          console.log(res);
+
           setPicData({ ...picData, data: res });
         }
       );
@@ -89,13 +91,17 @@ const ProfileTabs = () => {
   };
 
   const deletePic = () => {
-    PicServer.batchDeletePic(selectPicKey).then((res) => {
-      console.log(res);
+    const data = picData.data.filter(
+      (item) => !selectPicKey.includes(item.key.toString())
+    );
+
+    PicServer.batchDeletePic(selectPicKey).then(() => {
+      setPicData({ ...picData, data });
     });
   };
   return (
     <div id="profile-table">
-      <Tabs activeKey={activeKey} onChange={tabChange} tabPosition="left">
+      <Tabs activeKey={activeKey} onChange={tabChange}>
         <Tabs.TabPane tab="基本信息" key={'0'}>
           <Form
             labelAlign="left"
