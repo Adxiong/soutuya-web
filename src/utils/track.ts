@@ -6,7 +6,7 @@ import {ReactPropTypes } from 'react';
  * @Author: Adxiong
  * @Date: 2022-05-08 11:45:06
  * @LastEditors: Adxiong
- * @LastEditTime: 2022-05-08 12:38:33
+ * @LastEditTime: 2022-05-09 22:53:03
  */
 type OnClickEvent = (message:any) => void
 
@@ -16,7 +16,6 @@ interface InitReactTrack {
   onClickEvent?:OnClickEvent;
   onRouterChange?:OnRouterChange;
 }
-
 interface ExtendReactPropTypes extends ReactPropTypes{
   track: any
 }
@@ -38,9 +37,9 @@ const initTrackEvent = ( {onClickEvent, onRouterChange }: InitReactTrack) => {
   React.createElement = (...args: any[]) => {
     let props = args[1]
     if(onClickEvent && props.track) {
-      props = propTrackWithEvent(props, onClickEvent)
+      args[1] = propTrackWithEvent(props, onClickEvent)
     }
-    return originReactCreateElement(type, props, children)
+    return originReactCreateElement()
   }
 }
 
